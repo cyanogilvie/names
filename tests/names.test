@@ -1,0 +1,23 @@
+if {"::tcltest" ni [namespace children]} {
+	package require tcltest
+	namespace import ::tcltest::*
+}
+
+tcltest::loadTestedCommands
+package require names
+
+test gen_unique-1.0 {Deterministic using supplied sequence} -setup { #<<<
+    package require crypto
+    package require prng::mt
+	prng::mt::Sequence create s1 "hello, names"
+} -body {
+    list [names gen_unique s1] [names gen_unique s1] [names gen_unique s1]
+} -cleanup {
+    s1 destroy
+} -result {MuchDeath HumanEquivalent PrizeBell}
+#>>>
+
+tcltest::cleanupTests
+return
+
+# vim: ft=tcl foldmethod=marker foldmarker=<<<,>>> ts=4 shiftwidth=4
