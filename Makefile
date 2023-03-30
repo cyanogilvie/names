@@ -1,4 +1,5 @@
-DESTDIR=/usr/local
+DESTDIR=
+PREFIX=/usr/local
 PACKAGE_NAME=names
 VER=0.1
 TCLSH=tclsh
@@ -14,12 +15,12 @@ tm: tm/$(PACKAGE_NAME)-$(VER).tm
 docs: doc/$(PACKAGE_NAME).n README.md
 
 install-tm: tm
-	mkdir -p $(DESTDIR)/lib/tcl8/site-tcl
-	cp tm/$(PACKAGE_NAME)-$(VER).tm $(DESTDIR)/lib/tcl8/site-tcl/
+	mkdir -p $(DESTDIR)$(PREFIX)/lib/tcl8/site-tcl
+	cp tm/$(PACKAGE_NAME)-$(VER).tm $(DESTDIR)$(PREFIX)/lib/tcl8/site-tcl/
 
 install-doc: docs
-	mkdir -p $(DESTDIR)/man
-	cp doc/$(PACKAGE_NAME).n $(DESTDIR)/man/
+	mkdir -p $(DESTDIR)$(PREFIX)/man
+	cp doc/$(PACKAGE_NAME).n $(DESTDIR)$(PREFIX)/man/
 
 install: install-tm install-doc
 
